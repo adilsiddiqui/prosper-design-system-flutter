@@ -1,0 +1,41 @@
+name: prosper_design_system
+description: Prosper Design System - A comprehensive design token system for Flutter, generated from Figma.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: '>=3.10.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_svg: ^2.0.10+1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
+  # Inter font from Figma design system
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Inter-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Inter-SemiBold.ttf
+          weight: 600
+
+  # Icon assets
+  assets:
+    - assets/icons/generic/line/
+    - assets/icons/generic/solid/
+    - assets/images/testimonials/
+    - assets/images/portfolio/
+    - assets/images/videos/
+    - assets/images/funds/
