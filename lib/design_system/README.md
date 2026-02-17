@@ -6,6 +6,49 @@ A comprehensive design token system for Flutter, generated from Figma.
 
 This design system provides a centralized, token-based approach to styling your Flutter application. All design values (colors, typography, spacing, shadows, icons) are derived from Figma design tokens, ensuring pixel-perfect consistency between design and implementation.
 
+## What Exists in This Design System
+
+The Prosper Design System is a token-based, Figma-aligned system with separate light and dark palettes. All styling goes through design tokens; there are no hardcoded color or spacing values in app code. You can access tokens in two ways: **theme-aware** via `context.ds` (preferred) or **static** via the `DS` class.
+
+### Token Inventory
+
+| Category | Count | Access |
+|----------|-------|--------|
+| **Colors** | 100+ tokens | `context.ds.colors` or `DS.colors(mode)` |
+| **Typography** | 27 styles | `context.ds.typography` or `DS.type.mobile` / `desktop` / `deck` |
+| **Spacing** | 15 positive, 15 negative | `DS.space.*` (e.g. `DS.space.md`), `DSEdgeInsets.page` / `card` / `listItem` |
+| **Radius** | 3 tokens | `DS.radius.xl` / `xl3` / `full`, `DSBorderRadius.*` |
+| **Shadows** | 4 levels | `context.ds.shadows` or `DS.shadows(mode)` |
+| **Icons** | 292 total (183 with line + solid) | `DSIcon(DSIcons.*)`, `DS.icons.*` |
+| **Chart palettes** | 9 palettes × 5 series | `context.ds.colors.chartPalette(DSChartColorPalette.*)` |
+| **Figma mapping** | Bidirectional | `DSTokenNames.getOriginalName(dartName)`, `DSTokenNames.getDartSafeName(figmaName)` |
+
+### Entry Points
+
+- **Theme-aware (preferred):** `context.ds` exposes `colors`, `typography`, `shadows`, and `isDark` for the current theme.
+- **Static:** `DS.space.*`, `DS.radius.*`, `DS.type.mobile|desktop|deck`, `DS.icons.*`, `DS.colors(mode)`, `DS.shadows(mode)`, `DS.theme.light|dark`.
+
+```mermaid
+flowchart LR
+  subgraph app [App]
+    MaterialApp["MaterialApp theme/darkTheme"]
+  end
+  subgraph ds [Design System]
+    DSTheme["DSTheme.light/dark"]
+    DSExt["DSThemeExtension"]
+    DSClass["DS class static"]
+  end
+  MaterialApp --> DSTheme
+  DSTheme --> DSExt
+  DSExt --> context_ds["context.ds"]
+  DSClass --> space["DS.space"]
+  DSClass --> radius["DS.radius"]
+  DSClass --> type["DS.type"]
+  DSClass --> icons["DS.icons"]
+  DSClass --> colors_mode["DS.colors(mode)"]
+  DSClass --> shadows_mode["DS.shadows(mode)"]
+```
+
 ## Quick Start
 
 ### 1. Setup Theme
@@ -58,6 +101,17 @@ DS.colors(DSThemeMode.light).textPrimary
 DS.colors(DSThemeMode.dark).bgPrimary
 ```
 
+**Key tokens (Light vs Dark):**
+
+| Token | Light | Dark |
+|-------|-------|------|
+| `textPrimary` | #191919 | #FCFEFF |
+| `textSecondary` | #3D3D3D | #D5D8DA |
+| `bgPrimary` | #FFFFFF | #101112 |
+| `bgSecondary` | #F7F7F7 | #1B1D1E |
+| `signalTextPositive` | #23625E | #4EB3A9 |
+| `signalTextNegative` | #AB2626 | #FF5757 |
+
 **Available Color Tokens:**
 
 | Category | Tokens |
@@ -69,6 +123,8 @@ DS.colors(DSThemeMode.dark).bgPrimary
 | Brand | `directMutualFunds`, `regularMutualFunds`, `monthlyExpenses`, `excessBalance`, `insightsBg`, `insightsText`, `goalPlanningHighContrast`, `goalPlanningLowContrast` |
 | Signal | `signalBgNegative*`, `signalBgWarning*`, `signalBgPositive*`, `signalBorder*`, `signalIcon*`, `signalText*` |
 | Chart | `chartRedSeries1st-5th`, `chartYellowSeries1st-5th`, `chartBrownSeries1st-5th`, `chartLightGreenSeries1st-5th`, `chartGreenSeries1st-5th`, `chartBlueSeries1st-5th`, `chartPurpleSeries1st-5th`, `chartPinkSeries1st-5th`, `chartGraySeries1st-5th` |
+
+**Chart palettes:** Use `DSChartColorPalette` and `colors.chartPalette(palette)` to get a list of 5 colors for a palette. Palettes: `red`, `yellow`, `brown`, `lightGreen`, `green`, `blue`, `purple`, `pink`, `gray`. Example: `context.ds.colors.chartPalette(DSChartColorPalette.green)`.
 
 ### Typography
 
@@ -186,7 +242,7 @@ context.ds.shadows.byLevel(DSShadowLevel.medium)
 
 ### Icons
 
-Access icons via `DSIcon` widget or `DS.icons.*`.
+There are **292 icons** in total: 292 line variants, 183 solid variants, and 183 icons have both line and solid variants. Icons are grouped by `DSIconCategory` (`generic`, `dezerv`). Use `DSIconSize` for dimensions and `DSIconStroke` for line vs solid. Access via `DSIcon` widget or `DS.icons.*`.
 
 ```dart
 // Using DSIconData
@@ -219,6 +275,8 @@ DSIcon(DSIcons.check, color: context.ds.colors.signalIconPositivePrimary)
 |--------|-------------|
 | `line` | Outline style (default) |
 | `solid` | Filled style |
+
+**Icon categories:** `DSIconCategory.generic`, `DSIconCategory.dezerv`. Sizes: `DSIconSize.small` (16px), `medium` (20px), `defaultSize` (24px), `large` (32px).
 
 ## File Structure
 

@@ -35,7 +35,3 @@ flutter:
   assets:
     - assets/icons/generic/line/
     - assets/icons/generic/solid/
-    - assets/images/testimonials/
-    - assets/images/portfolio/
-    - assets/images/videos/
-    - assets/images/funds/

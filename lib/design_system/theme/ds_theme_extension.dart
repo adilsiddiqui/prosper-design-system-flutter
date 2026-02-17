@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 
 import '../colors/ds_colors.dart';
 import '../shadows/ds_shadows.dart';
-import '../spacing/ds_spacing.dart';
-import '../radius/ds_radius.dart';
 import '../typography/ds_typography.dart';
 
 /// Design System Theme Extension
